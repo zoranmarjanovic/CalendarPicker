@@ -44,7 +44,11 @@ export default class CalendarPicker extends Component {
   }
 
   componentWillMount() {
-    this.setState({...this.updateScaledStyles(this.props), ...this.updateMonthYear(this.props.initialDate)});
+    this.setState({ ...this.updateScaledStyles(this.props), ...this.updateMonthYear(this.props.selectedDay || this.props.initialDate) }, () => {
+      if(this.props.selectedDay) {
+        this.handleOnPressDay(this.props.selectedDay.getDate())
+      }
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,7 +63,7 @@ export default class CalendarPicker extends Component {
     }
 
     let newMonthYear = {};
-    if (nextProps.initialDate.getTime() !== this.props.initialDate.getTime()) {
+    if (+nextProps.initialDate.getDate() !== +this.props.initialDate.getDate()) {
       newMonthYear = this.updateMonthYear(nextProps.initialDate);
       doStateUpdate = true;
     }
