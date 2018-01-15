@@ -10,7 +10,6 @@ import { Utils } from './Utils';
 export default function Day(props) {
   const {
     day,
-    key,
     month,
     year,
     styles,
